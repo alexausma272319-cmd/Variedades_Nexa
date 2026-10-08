@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Variedades Nexa</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+     LOGIN
+================================================== -->
+
+    <div id="login">
+
+        <div class="login-box">
+
+            <div class="bat">
+                🦇
+            </div>
+
+            <h1>
+                VARIEDADES NEXA
+            </h1>
+
+            <p class="subtitle">
+                Sistema de ventas
+            </p>
+
+            <input type="password" id="pinInput" maxlength="6" placeholder="PIN" autocomplete="off">
+
+            <button class="login-button" onclick="login()">
+                INGRESAR
+            </button>
+
+            <p class="enter-info">
+                Presiona ENTER para ingresar
+            </p>
+
+            <p id="error"></p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+     APLICACIÓN
+================================================== -->
+
+    <div id="app">
+
+
+        <!-- HEADER -->
+
+        <header>
+
+            <div class="brand">
+
+                <span class="bat-small">
+                    🦇
+                </span>
+
+                <span>
+                    VARIEDADES NEXA
+                </span>
+
+            </div>
+
+
+            <div class="user">
+
+                Administrador
+
+            </div>
+
+        </header>
+
+
+
+        <!-- MENÚ -->
+
+        <aside>
+
+            <button class="menu active" onclick="showPage('inicio', this)">
+                🏠 Inicio
+            </button>
+
+
+            <button class="menu" onclick="showPage('ventas', this)">
+                🛒 Ventas
+            </button>
+
+
+            <button class="menu" onclick="showPage('productos', this)">
+                📦 Productos
+            </button>
+
+
+            <button class="menu" onclick="showPage('caja', this)">
+                💰 Caja
+            </button>
+
+
+            <button class="menu" onclick="showPage('reportes', this)">
+                📊 Reportes
+            </button>
+
+
+            <button class="menu" onclick="showPage('clientes', this)">
+                👥 Clientes
+            </button>
+
+
+            <button class="menu" onclick="logout()">
+                🚪 Salir
+            </button>
+
+        </aside>
+
+
+
+        <!-- ==================================================
+         INICIO
+    ================================================== -->
+
+        <main>
+
+
+            <section id="inicio" class="page">
+
+                <h2>
+                    Panel principal
+                </h2>
+
+                <p class="welcome">
+                    Bienvenido a Variedades Nexa 🦇
+                </p>
+
+
+                <div class="cards">
+
+
+                    <div class="card">
+
+                        <span>
+                            💰
+                        </span>
+
+                        <h3>
+                            Ventas de hoy
+                        </h3>
+
+                        <strong id="todaySales">
+                            $0
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="card">
+
+                        <span>
+                            📦
+                        </span>
+
+                        <h3>
+                            Productos
+                        </h3>
+
+                        <strong id="productCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="card">
+
+                        <span>
+                            🛒
+                        </span>
+
+                        <h3>
+                            Ventas realizadas
+                        </h3>
+
+                        <strong id="salesCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="card">
+
+                        <span>
+                            👥
+                        </span>
+
+                        <h3>
+                            Clientes
+                        </h3>
+
+                        <strong id="clientCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <section class="quick">
+
+                    <h2>
+                        Acciones rápidas
+                    </h2>
+
+
+                    <div class="quick-buttons">
+
+                        <button onclick="showPage('ventas')">
+                            🛒 Nueva venta
+                        </button>
+
+
+                        <button onclick="showPage('productos')">
+                            📦 Agregar producto
+                        </button>
+
+
+                        <button onclick="showPage('clientes')">
+                            👤 Nuevo cliente
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+            </section>
+
+
+
+            <!-- ==================================================
+             PRODUCTOS
+        ================================================== -->
+
+            <section id="productos" class="page hidden">
+
+                <h2>
+                    📦 Productos
+                </h2>
+
+
+                <div class="form-box">
+
+                    <h3>
+                        Agregar producto
+                    </h3>
+
+
+                    <input type="text" id="productName" placeholder="Nombre del producto">
+
+
+                    <input type="number" id="productPrice" placeholder="Precio">
+
+
+                    <input type="number" id="productStock" placeholder="Cantidad">
+
+
+                    <button onclick="addProduct()" class="primary-button">
+                        + Agregar producto
+                    </button>
+
+                </div>
+
+
+
+                <div class="table-box">
+
+                    <h3>
+                        Inventario
+                    </h3>
+
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Producto
+                                </th>
+
+                                <th>
+                                    Precio
+                                </th>
+
+                                <th>
+                                    Stock
+                                </th>
+
+                                <th>
+                                    Acción
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="productTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================================
+             VENTAS
+        ================================================== -->
+
+            <section id="ventas" class="page hidden">
+
+                <h2>
+                    🛒 Nueva venta
+                </h2>
+
+
+                <div class="sale-layout">
+
+
+                    <div class="form-box">
+
+                        <h3>
+                            Seleccionar producto
+                        </h3>
+
+
+                        <select id="saleProduct">
+
+                            <option value="">
+                                Selecciona un producto
+                            </option>
+
+                        </select>
+
+
+                        <input type="number" id="saleQuantity" placeholder="Cantidad" min="1" value="1">
+
+
+                        <button onclick="addToCart()" class="primary-button">
+                            Agregar al carrito
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="cart">
+
+                        <h3>
+                            🛒 Carrito
+                        </h3>
+
+
+                        <div id="cartItems">
+
+                            <p>
+                                El carrito está vacío.
+                            </p>
+
+                        </div>
+
+
+                        <div class="total">
+
+                            Total:
+
+                            <strong id="cartTotal">
+                                $0
+                            </strong>
+
+                        </div>
+
+
+                        <input type="number" id="moneyReceived" placeholder="Dinero recibido">
+
+
+                        <button onclick="finishSale()" class="primary-button">
+                            💰 Finalizar venta
+                        </button>
+
+
+                        <p id="change">
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================================
+             CAJA
+        ================================================== -->
+
+            <section id="caja" class="page hidden">
+
+                <h2>
+                    💰 Caja
+                </h2>
+
+
+                <div class="cash-box">
+
+                    <h3>
+                        Estado de caja
+                    </h3>
+
+
+                    <p>
+                        Ventas acumuladas
+                    </p>
+
+
+                    <strong id="cashTotal">
+                        $0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================================
+             REPORTES
+        ================================================== -->
+
+            <section id="reportes" class="page hidden">
+
+                <h2>
+                    📊 Reportes
+                </h2>
+
+
+                <div class="cards">
+
+
+                    <div class="card">
+
+                        <h3>
+                            Total vendido
+                        </h3>
+
+                        <strong id="reportSales">
+                            $0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>
+                            Número de ventas
+                        </h3>
+
+                        <strong id="reportCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================================
+             CLIENTES
+        ================================================== -->
+
+            <section id="clientes" class="page hidden">
+
+                <h2>
+                    👥 Clientes
+                </h2>
+
+
+                <div class="form-box">
+
+                    <h3>
+                        Nuevo cliente
+                    </h3>
+
+
+                    <input type="text" id="clientName" placeholder="Nombre">
+
+
+                    <input type="text" id="clientPhone" placeholder="Teléfono">
+
+
+                    <button onclick="addClient()" class="primary-button">
+                        + Agregar cliente
+                    </button>
+
+                </div>
+
+
+                <div class="table-box">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Nombre
+                                </th>
+
+                                <th>
+                                    Teléfono
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="clientTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
